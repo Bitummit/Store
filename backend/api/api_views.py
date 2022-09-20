@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 from backend.api.serializers import (
     ItemSerializer,
@@ -15,7 +15,23 @@ class ItemsViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
 
 
+class FilterItemsViewSet(generics.ListAPIView):
+    serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        items = Item.objects.all()
+        category_name = self.kwargs.get('name', '')
+        print(category_name)
+        if category_name:
+            category = Category.objects.filter(name=category_name).first()
+            items = items.filter(category=category)
+
+        return items
+
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
 
