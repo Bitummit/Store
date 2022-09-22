@@ -7,14 +7,14 @@ class Material(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
-        return f"Material {self.name}"
+        return f"{self.name}"
 
 
 class Size(models.Model):
     size = models.CharField(max_length=16)
 
     def __str__(self):
-        return f"Size {self.size}"
+        return f"{self.size}"
 
 
 class Item(models.Model):
@@ -34,7 +34,7 @@ class Category(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
-        return f"Category{self.name}"
+        return f"Category {self.name}"
 
 
 class Cart(models.Model):

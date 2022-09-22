@@ -4,11 +4,11 @@
 
     <div class="card-columns">
       <div class="card text-center h-50" v-for="item in items" :key="item.name">
-        <img class="card-img-top" style="" :src="item.image">
+        <img class="card-img-top" :src="item.image">
         <div class="card-body">
-          <p class="card-text">{{ item.price }}</p>
+          <p class="card-text">{{ item.price }} $</p>
           <h5 class="card-title">{{ item.name }}</h5>
-          <button type="button" class="btn btn-info">View details</button>
+          <RouterLink :to="{name: 'detail-item-view', params: {name: item.name}}"><button type="button" class="btn btn-info">View details</button></RouterLink>
         </div>
       </div>
 
