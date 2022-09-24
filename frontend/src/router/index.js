@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Catalog from '../views/CatalogView.vue'
 import Category from '../views/CategoryView.vue'
+import Cart from '../views/CartView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -18,8 +19,18 @@ const router = createRouter({
       {
       path: '/detail/:name',
       name: 'detail-item-view',
-      props: true,
-      component: () => import('../views/DetailItemView.vue')
+        props: true,
+        component: () => import('../views/DetailItemView.vue')
+      },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: Cart
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
     },
 
   ]

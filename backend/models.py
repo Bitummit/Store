@@ -40,8 +40,8 @@ class Category(models.Model):
 class Cart(models.Model):
     items = models.ManyToManyField('CartProduct', related_name='cart')
     owner = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    final_price = models.DecimalField(decimal_places=2, max_digits=9)
-    total_items = models.IntegerField()
+    final_price = models.DecimalField(decimal_places=2, max_digits=9, null=True, blank=True)
+    total_items = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return f"User's {self.owner} cart"

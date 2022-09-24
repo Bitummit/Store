@@ -6,11 +6,13 @@ export default {
   data() {
     return {
       categories: [],
-
+      isAuth: false,
     }
   },
   mounted() {
     this.getCategories()
+    this.isAuth = this.$store.state.isAuth
+    console.log(this.isAuth)
   },
 
   methods: {
@@ -46,13 +48,24 @@ export default {
               Category
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <RouterLink v-for="category in categories" :key="category.name" :to="{name: 'view_by_category', params: {category: category.name}}"><a class="dropdown-item" > {{category.name}} </a></RouterLink>
+              <RouterLink v-for="category in categories" :key="category.name"
+                          :to="{name: 'view_by_category', params: {category: category.name}}"><a class="dropdown-item">
+                {{ category.name }} </a></RouterLink>
             </div>
           </li>
         </ul>
-        <span class="navbar-text mr-5">
-              <RouterLink :to='{name: "catalog"}'><a class="nav-link">Cart</a></RouterLink>
+        <span class="navbar-text mr-3">
+          <span v-if="!isAuth">
+            <RouterLink :to='{name: "login"}'><a>Login/</a></RouterLink>
+            <RouterLink :to='{name: "cart"}'><a>Register</a></RouterLink>
             </span>
+          <span v-else>
+            <a class="nav-link">My account</a>
+          </span>
+        </span>
+        <span class="navbar-text mr-5">
+              <RouterLink :to='{name: "cart"}'><a class="nav-link">Cart</a></RouterLink>
+        </span>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

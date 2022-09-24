@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from backend.models import Item, Category, Material, Size
+from backend.models import Item, Category, Material, Size, Cart
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -29,4 +29,12 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
+        fields = '__all__'
+
+
+class CartSerializer(serializers.ModelSerializer):
+    items = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Cart
         fields = '__all__'

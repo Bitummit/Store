@@ -5,26 +5,13 @@
       <h5 class=" text-center">{{ item.name }} </h5>
       <p class="text-center">{{ item.price }} $</p>
       <p class="text-center mt-5">{{ item.desc }}</p>
-      <p class="card-text ml-5"> Materials: <span v-for="material in item.material" :key="material.name">{{ material }}</span></p>
+      <p class="card-text ml-5 mt-5"> Materials: <span v-for="material in item.material" :key="material.name">{{ material }}</span></p>
       <div class="ml-5">
-        Sizes
           <ul class="size">
             <li v-for="size_in_stock in item.sizes_in_stock" :key='size_in_stock.size'>
               <input type="radio"  :id=size_in_stock :value=size_in_stock v-model="checked_size" @click="checkSize"/>
               <label :for=size_in_stock>{{size_in_stock}}</label>
             </li>
-<!--            <li>-->
-<!--              <input type="radio" id="a50" name="amount"/>-->
-<!--              <label for="a50">$50</label>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--              <input type="radio" id="a75" name="amount" checked="checked"/>-->
-<!--              <label for="a75">$75</label>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--              <input type="radio" id="a100" name="amount"/>-->
-<!--              <label for="a100">$100</label>-->
-<!--            </li>-->
           </ul>
         </div>
       <button type="button" class="btn btn-dark">Add to cart</button>
