@@ -13,14 +13,8 @@ const store = createStore({
     state() {
         return {
             isAuth: false,
+            token: '',
         }
-    },
-    mutations: {
-
-        authUser(state) {
-            state.isAuth = true
-        },
-
     },
     actions: {},
     // plugins: [createPersistPlugin()],

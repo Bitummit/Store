@@ -6,13 +6,10 @@ export default {
   data() {
     return {
       categories: [],
-      isAuth: false,
     }
   },
   mounted() {
     this.getCategories()
-    this.isAuth = this.$store.state.isAuth
-    console.log(this.isAuth)
   },
 
   methods: {
@@ -24,6 +21,9 @@ export default {
 
     }
   },
+  watch: {
+
+  }
 }
 </script>
 
@@ -55,12 +55,14 @@ export default {
           </li>
         </ul>
         <span class="navbar-text mr-3">
-          <span v-if="!isAuth">
+          <span v-if="!$store.state.isAuth">
             <RouterLink :to='{name: "login"}'><a>Login/</a></RouterLink>
             <RouterLink :to='{name: "cart"}'><a>Register</a></RouterLink>
             </span>
           <span v-else>
-            <a class="nav-link">My account</a>
+            <a class="nav-link"></a>
+            <RouterLink :to='{name: "login"}'><a>My account/</a></RouterLink>
+            <RouterLink :to='{name: "cart"}'><a>Logout</a></RouterLink>
           </span>
         </span>
         <span class="navbar-text mr-5">

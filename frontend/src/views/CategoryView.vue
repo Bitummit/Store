@@ -23,7 +23,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if(to.name === 'view_by_category') {
+      if (to.name === 'view_by_category') {
         this.getItemsByCategory()
       }
     }
@@ -31,7 +31,14 @@ export default {
 
   methods: {
     getItemsByCategory() {
-      axios.get(`http://127.0.0.1:8000/api/items/by/category/${this.category}/`)
+      let headers = {
+        'Content-Type': 'application/json'
+      }
+      if (this.$store.state.isAuth) {
+        headers['Authorization'] = 'Token' + this.$store.state.token
+      }
+
+      axios.get(`http://127.0.0.1:8000/api/items/by/category/${this.category}/`, {headers})
           .then(response => {
             this.items = response.data
           })

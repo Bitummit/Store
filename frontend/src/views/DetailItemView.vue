@@ -23,6 +23,7 @@
 <script>
 import axios from "axios";
 
+
 export default {
   name: "CatalogView",
   data() {
@@ -40,7 +41,13 @@ export default {
 
   methods: {
     getItem() {
-      axios.get(`http://127.0.0.1:8000/api/items/detail/${this.name}/`)
+      let headers = {
+        'Content-Type': 'application/json'
+      }
+      if (this.$store.state.isAuth) {
+        headers['Authorization'] = 'Token' + this.$store.state.token
+      }
+      axios.get(`http://127.0.0.1:8000/api/items/detail/${this.name}/`, {headers})
           .then(response => {
             this.item = response.data
 
