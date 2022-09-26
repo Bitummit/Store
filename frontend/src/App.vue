@@ -6,6 +6,18 @@ export default {
   data() {
     return {
       categories: [],
+      token: '',
+    }
+  },
+  beforeCreate() {
+    this.$store.commit("initStore")
+
+    this.token = this.$store.state.token
+
+    if (this.token) {
+      axios.defaults.headers.common['Authorization'] = 'Token'+this.token
+    } else {
+      axios.defaults.headers.common['Authorization'] = ''
     }
   },
   mounted() {
@@ -19,6 +31,10 @@ export default {
             this.categories = response.data
           })
 
+    },
+    logout() {
+      this.$store.commit('removeToken')
+      localStorage.setItem('token', '')
     }
   },
   watch: {
@@ -56,17 +72,16 @@ export default {
         </ul>
         <span class="navbar-text mr-3">
           <span v-if="!$store.state.isAuth">
-            <RouterLink :to='{name: "login"}'><a>Login/</a></RouterLink>
-            <RouterLink :to='{name: "cart"}'><a>Register</a></RouterLink>
+            <RouterLink :to='{name: "login"}'><button type="button" class="btn btn-info mr-3">Login </button></RouterLink>
+            <RouterLink :to='{name: "cart"}'><button type="button" class="btn btn-info mr-3">Register </button></RouterLink>
             </span>
           <span v-else>
-            <a class="nav-link"></a>
-            <RouterLink :to='{name: "login"}'><a>My account/</a></RouterLink>
-            <RouterLink :to='{name: "cart"}'><a>Logout</a></RouterLink>
+            <RouterLink :to='{name: "login"}'><button type="button" class="btn btn-info mr-3">My account </button></RouterLink>
+            <button @click="logout" type="button" class="btn btn-danger">Logout </button>
           </span>
         </span>
         <span class="navbar-text mr-5">
-              <RouterLink :to='{name: "cart"}'><a class="nav-link">Cart</a></RouterLink>
+              <RouterLink :to='{name: "cart"}'><button type="button" class="btn btn-success">Cart</button></RouterLink>
         </span>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

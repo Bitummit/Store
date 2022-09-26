@@ -31,14 +31,14 @@ export default {
 
   methods: {
     getItemsByCategory() {
-      let headers = {
-        'Content-Type': 'application/json'
-      }
-      if (this.$store.state.isAuth) {
-        headers['Authorization'] = 'Token' + this.$store.state.token
-      }
+      // let headers = {
+      //   'Content-Type': 'application/json'
+      // }
+      // if (this.$store.state.isAuth) {
+      //   headers['Authorization'] = 'Token' + this.$store.state.token
+      // }
 
-      axios.get(`http://127.0.0.1:8000/api/items/by/category/${this.category}/`, {headers})
+      axios.get(`http://127.0.0.1:8000/api/items/by/category/${this.category}/`, )
           .then(response => {
             this.items = response.data
           })

@@ -3,7 +3,7 @@
     <form>
       <div class="form-outline mb-4">
         <input type="email" id="form2Example1" class="form-control" v-model="login"/>
-        <label class="form-label" for="form2Example1">Email address</label>
+        <label class="form-label" for="form2Example1">Username</label>
       </div>
       <div class="form-outline mb-4">
         <input type="password" id="form2Example2" class="form-control" v-model="password"/>
@@ -36,6 +36,7 @@
 
 <script>
 import axios from "axios";
+import router from "@/router";
 
 export default {
   name: "LoginView",
@@ -47,11 +48,16 @@ export default {
   },
   methods: {
     auth() {
-      axios.post('http://127.0.0.1:8000/api-token-auth', {username: this.login, password: this.password})
+      axios.defaults.headers.common['Authorization'] = ''
+      localStorage.removeItem('token')
+      axios.post('http://127.0.0.1:8000/api/token/login/', {username: this.login, password: this.password})
           .then(response => {
-            const token = response.data['token']
-            this.$store.state.isAuth = true
-            this.$store.state.token = token
+            const token = response.data.auth_token
+            console.log(token)
+            this.$store.commit('setToken', token)
+            localStorage.setItem('token', token)
+            this.$router.push({name: 'catalog'})
+            axios.defaults.headers.common['Authorization'] = 'Token' + token
           }).catch(error => console.error(error.response.data) )
     }
   }

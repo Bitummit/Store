@@ -41,13 +41,13 @@ export default {
 
   methods: {
     getItem() {
-      let headers = {
-        'Content-Type': 'application/json'
-      }
-      if (this.$store.state.isAuth) {
-        headers['Authorization'] = 'Token' + this.$store.state.token
-      }
-      axios.get(`http://127.0.0.1:8000/api/items/detail/${this.name}/`, {headers})
+      // let headers = {
+      //   'Content-Type': 'application/json'
+      // }
+      // if (this.$store.state.isAuth) {
+      //   headers['Authorization'] = 'Token' + this.$store.state.token
+      // }
+      axios.get(`http://127.0.0.1:8000/api/items/detail/${this.name}/`, )
           .then(response => {
             this.item = response.data
 

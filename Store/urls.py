@@ -2,14 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.conf.urls.static import static
-from rest_framework.authtoken import views
 
 from Store import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('backend.urls')),
-    path('api-token-auth/', views.obtain_auth_token),
 
 ]
 
