@@ -7,6 +7,9 @@ export default {
     return {
       categories: [],
       token: '',
+      cart: {
+        items: []
+      }
     }
   },
   beforeCreate() {
@@ -22,9 +25,13 @@ export default {
   },
   mounted() {
     this.getCategories()
+    this.cart = this.$store.state.cart
   },
 
   methods: {
+    getCart() {
+
+    },
     getCategories() {
       axios.get('http://127.0.0.1:8000/api/category/')
           .then(response => {
@@ -35,10 +42,18 @@ export default {
     logout() {
       this.$store.commit('removeToken')
       localStorage.setItem('token', '')
+      this.$router.push({name: 'catalog'})
     }
   },
-  watch: {
+  computed: {
+    cartTotalLength() {
+      let totalLength = 0
 
+      for(let i = 0; i < this.cart.items.length; i++) {
+        totalLength += 1
+      }
+      return totalLength
+    }
   }
 }
 </script>
@@ -73,7 +88,7 @@ export default {
         <span class="navbar-text mr-3">
           <span v-if="!$store.state.isAuth">
             <RouterLink :to='{name: "login"}'><button type="button" class="btn btn-info mr-3">Login </button></RouterLink>
-            <RouterLink :to='{name: "cart"}'><button type="button" class="btn btn-info mr-3">Register </button></RouterLink>
+            <RouterLink :to='{name: "register"}'><button type="button" class="btn btn-info mr-3">Register </button></RouterLink>
             </span>
           <span v-else>
             <RouterLink :to='{name: "login"}'><button type="button" class="btn btn-info mr-3">My account </button></RouterLink>
@@ -81,7 +96,7 @@ export default {
           </span>
         </span>
         <span class="navbar-text mr-5">
-              <RouterLink :to='{name: "cart"}'><button type="button" class="btn btn-success">Cart</button></RouterLink>
+              <RouterLink :to='{name: "cart"}'><button type="button" class="btn btn-success">Cart ({{cartTotalLength}})</button></RouterLink>
         </span>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

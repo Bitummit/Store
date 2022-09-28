@@ -3,12 +3,14 @@ from rest_framework import viewsets, generics
 from backend.api.serializers import (
     ItemSerializer,
     CategorySerializer,
-    CartSerializer
+    CartSerializer,
+    CartProductSerializer,
+    CustomerSerializer,
 )
 from backend.models import (
     Item,
     Category,
-    Cart
+    Cart, CartProduct, Customer
 )
 
 
@@ -45,3 +47,13 @@ class ItemDetailViewSet(generics.RetrieveAPIView):
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+class CartProductViewSet(viewsets.ModelViewSet):
+    queryset = CartProduct.objects.all()
+    serializer_class = CartProductSerializer
+
+
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer

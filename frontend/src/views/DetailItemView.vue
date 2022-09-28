@@ -14,7 +14,7 @@
             </li>
           </ul>
         </div>
-      <button type="button" class="btn btn-dark">Add to cart</button>
+      <button type="button" class="btn btn-dark" :disabled="checkSize===''" @click="addToCart">Add to cart</button>
     </div>
   </div>
 
@@ -41,18 +41,19 @@ export default {
 
   methods: {
     getItem() {
-      // let headers = {
-      //   'Content-Type': 'application/json'
-      // }
-      // if (this.$store.state.isAuth) {
-      //   headers['Authorization'] = 'Token' + this.$store.state.token
-      // }
       axios.get(`http://127.0.0.1:8000/api/items/detail/${this.name}/`, )
           .then(response => {
             this.item = response.data
 
           })
 
+    },
+    addToCart() {
+      // let item = {
+      //   item: this.item,
+      //   quantity: this.
+      // }
+      this.$store.commit('addToCart', this.item)
     },
     checkSize() {
       console.log(this.checked_size)

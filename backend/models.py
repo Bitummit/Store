@@ -61,7 +61,7 @@ class CartProduct(models.Model):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     orders = models.ManyToManyField('Order', blank=True, related_name="customer")
-    phone = models.CharField(max_length=20, verbose_name="Телeфон")
+    phone = models.CharField(max_length=20, verbose_name="Телeфон", null=True, blank=True)
     address = models.CharField(max_length=1024, null=True, blank=True)
 
 
