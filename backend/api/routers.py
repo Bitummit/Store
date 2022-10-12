@@ -5,7 +5,8 @@ from backend.api.api_views import (
     CategoryViewSet,
     CartViewSet,
     CustomerViewSet,
-    CartProductViewSet
+    CartProductViewSet,
+    UserViewSet
 )
 
 router = routers.DefaultRouter()
@@ -14,3 +15,4 @@ router.register("category", CategoryViewSet)
 router.register("cart", CartViewSet)
 router.register("cartProduct", CartProductViewSet)
 router.register("customer", CustomerViewSet)
+router.register("users", UserViewSet)

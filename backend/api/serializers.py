@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
+
 from backend.models import Item, Category, Material, Size, Cart, CartProduct, Customer
 
 
@@ -48,9 +51,19 @@ class CartSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
+
+
 class CustomerSerializer(serializers.ModelSerializer):
     orders = serializers.StringRelatedField(many=True)
+    user = UserSerializer
 
     class Meta:
         model = Customer
         fields = '__all__'
+
+

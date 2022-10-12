@@ -91,7 +91,7 @@ export default {
             <RouterLink :to='{name: "register"}'><button type="button" class="btn btn-info mr-3">Register </button></RouterLink>
             </span>
           <span v-else>
-            <RouterLink :to='{name: "login"}'><button type="button" class="btn btn-info mr-3">My account </button></RouterLink>
+            <RouterLink :to='{name: "account"}'><button type="button" class="btn btn-info mr-3">My account </button></RouterLink>
             <button @click="logout" type="button" class="btn btn-danger">Logout </button>
           </span>
         </span>
