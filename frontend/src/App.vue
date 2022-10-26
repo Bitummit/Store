@@ -7,9 +7,7 @@ export default {
     return {
       categories: [],
       token: '',
-      cart: {
-        items: []
-      }
+      cart: {},
     }
   },
   beforeCreate() {
@@ -26,6 +24,7 @@ export default {
   mounted() {
     this.getCategories()
     this.cart = this.$store.state.cart
+    console.log(this.$store.state.cart)
   },
 
   methods: {
@@ -47,9 +46,10 @@ export default {
   },
   computed: {
     cartTotalLength() {
+
       let totalLength = 0
 
-      for(let i = 0; i < this.cart.items.length; i++) {
+      for(let i = 0; i < this.cart.length; i++) {
         totalLength += 1
       }
       return totalLength

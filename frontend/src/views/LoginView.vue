@@ -26,7 +26,7 @@
                 </div>
                 <div class="text-center mt-3">
                   <p>Not a member?
-                    <RouterLink :to='{name: "register"}'><a class="fw-bold text-body" ><u>Register now</u></a>
+                    <RouterLink :to='{name: "register"}'><a class="fw-bold text-body"><u>Register now</u></a>
                     </RouterLink>
                   </p>
 
@@ -63,19 +63,34 @@ export default {
             const token = response.data.auth_token
             this.$store.commit('setToken', token)
             localStorage.setItem('token', token)
+            // console.log(token)
+            this.getCustomer(token)
             this.$router.push({name: 'catalog'})
-            axios.defaults.headers.common['Authorization'] = 'Token' + token
+            axios.defaults.headers.common['Authorization'] = 'Token ' + token
           }).catch(error => console.error(error.response.data))
 
     },
-    // getOrCreateCart() {
-    //   let token = localStorage.getItem('token')
-    //   axios.get(`http://127.0.0.1:8000/api/cart/`,)
-    //       .then(response => {
-    //         this.item = response.data
-    //
-    //       })
-    // }
+    getCustomer(token) { //customer to localStorage
+      axios.get(`http://127.0.0.1:8000/api/customer/profile/${token}/`)
+          .then(response => {
+            this.getOrCreateCart(response.data.id)
+
+          }).catch(error => console.error(error.response.data))
+    },
+    getOrCreateCart(customerId) {
+      axios.get(`http://localhost:8000/api/cart/by/customer/${customerId}`)
+          .then(response => {
+            if (response.data.owner != null) {
+              this.$store.commit('setCart', response.data)
+            } else {
+              axios.post("http://localhost:8000/api/cart/", {owner: customerId, items: []})
+                  .then(response => {
+                    this.$store.commit('setCart', response.data)
+                    console.log(response.data)
+                  }).catch(error => console.error(error.response.data))
+            }
+          })
+    }
   }
 }
 </script>

@@ -6,18 +6,11 @@ const store = createStore({
         return {
             isAuth: false,
             token: '',
-            cart: {
-                items: [],
-            }
+            cart: {}
         }
     },
     mutations: {
         initStore(state) {
-          if (localStorage.getItem('cart')) {
-              state.cart = JSON.parse(localStorage.getItem('cart'))
-          }  else {
-              localStorage.setItem('cart', JSON.stringify(state.cart))
-          }
 
           if (localStorage.getItem('token')) {
               state.token = localStorage.getItem('token')
@@ -27,6 +20,9 @@ const store = createStore({
               state.isAuth = false
           }
         },
+        setCart(state, cart) {
+            state.cart = cart
+        },
         setToken(state, token) {
             state.token = token
             state.isAuth = true
@@ -35,16 +31,6 @@ const store = createStore({
             state.token = ''
             state.isAuth = false
         },
-        addToCart(state, item) {
-            // const exists = state.cart.items.filter(i => i.item.id === item.item.id)
-            //
-            // if (exists.length) {
-            //     exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
-            // } else {
-                state.cart.items.push(item)
-            // }
-            localStorage.setItem('cart', JSON.stringify(state.cart))
-        }
     },
 })
 

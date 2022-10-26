@@ -74,6 +74,15 @@ class GetCustomerByToken(views.APIView):
         return Response(serializer.data)
 
 
+class GetCartByCustomer(views.APIView):
+
+    def get(self, request, customer_id):
+        cart = Cart.objects.filter(owner=customer_id, is_active=True).last()
+        serializer = CartSerializer(cart, many=False)
+
+        return Response(serializer.data)
+
+
 class GetUserByToken(views.APIView):
 
     def get(self, request, key):

@@ -3,7 +3,8 @@ from backend.api.api_views import (
     FilterItemsViewSet,
     ItemDetailViewSet,
     GetCustomerByToken,
-    GetUserByToken
+    GetUserByToken,
+    GetCartByCustomer
 )
 from backend.api.routers import router
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('api/items/detail/<str:name>/', ItemDetailViewSet.as_view()),
     path('api/customer/profile/<str:key>/', GetCustomerByToken.as_view()),
     path('api/user/by/token/<str:key>/', GetUserByToken.as_view()),
+    path('api/cart/by/customer/<int:customer_id>/', GetCartByCustomer.as_view()),
 ]

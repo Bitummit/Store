@@ -83,21 +83,11 @@ export default {
       this.editing = !this.editing
     },
     saveUsername() {
-      axios.get('http://localhost:8000/api/users/')
-            .then(response => {
-              let users = response.data
-
-                // this.otherUsernames.push(users['username'])
-
-              // console.log(this.otherUsernames)
-            }).catch(error => console.error(error.response.data))
-
       if (this.savedUsername === this.user.username) {
         this.error = 'You haven\'t change username'
 
       } else {
-
-        axios.patch(`http://localhost:8000/api/users/${this.user.id}/`, {username: this.user.username})
+        axios.patch(`http://localhost:8000/api/my_users/${this.user.id}/`, {username: this.user.username})
             .then(response => {
               this.editing = !this.editing
               this.savedUsername = this.user.username

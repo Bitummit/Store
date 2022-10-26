@@ -39,10 +39,11 @@ class Category(models.Model):
 
 
 class Cart(models.Model):
-    items = models.ManyToManyField('CartProduct', related_name='cart')
+    items = models.ManyToManyField('CartProduct', related_name='cart', null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     owner = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    final_price = models.DecimalField(decimal_places=2, max_digits=9, null=True, blank=True)
-    total_items = models.IntegerField(null=True, blank=True)
+    final_price = models.DecimalField(decimal_places=2, max_digits=9, default=0)
+    total_items = models.IntegerField(null=True, default=0)
 
     def __str__(self):
         return f"User's {self.owner} cart"
@@ -57,7 +58,7 @@ class CartProduct(models.Model):
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    orders = models.ManyToManyField('Order', blank=True, null=True, related_name="customer")
+    orders = models.ManyToManyField('Order', related_name="customer")
     phone = models.CharField(max_length=20, verbose_name="Телeфон", null=True, blank=True)
     address = models.CharField(max_length=1024, null=True, blank=True)
 

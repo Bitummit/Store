@@ -68,6 +68,7 @@ export default {
       password: '',
       password2: '',
       errors: [],
+      createdUser: {},
     }
   },
   methods: {
@@ -100,6 +101,7 @@ export default {
         axios.post('http://127.0.0.1:8000/api/users/', formData)
             .then(response => {
               this.createCustomer(response.data.id)
+
               this.$router.push('/login')
             }).catch(error => {
           if (error.response) {
@@ -114,15 +116,16 @@ export default {
           }
         })
 
+
       }
     },
 
     createCustomer(id) {
       axios.post('http://localhost:8000/api/customer/', {user: id, orders: []})
           .then(response => {
-            console.log(response.data)
           }).catch(error => console.error(error.response.data))
-    }
+
+    },
   }
 
 }
