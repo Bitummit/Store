@@ -9,7 +9,7 @@
       <div class="ml-5">
           <ul class="size">
             <li v-for="size_in_stock in item.sizes_in_stock" :key='size_in_stock.size'>
-              <input type="radio"  :id=size_in_stock :value=size_in_stock v-model="checked_size" @click="checkSize"/>
+              <input type="radio"  :id=size_in_stock :value=size_in_stock v-model="checked_size"/>
               <label :for=size_in_stock>{{size_in_stock}}</label>
             </li>
           </ul>
@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       item: {},
+      cart: this.$store.state.cart,
       checked_size: '',
     }
   },
@@ -48,16 +49,28 @@ export default {
           })
 
     },
-    addToCart() {
-      // let item = {
-      //   item: this.item,
-      //   quantity: this.
-      // }
-      this.$store.commit('addToCart', this.item)
+    addToCart() { // to store
+      axios.post('http://localhost:8000/api/cartProduct/', {
+        item: this.item.id,
+        size: this.checked_size,
+        qty: 1,
+        final_price: this.item.price
+      }).then(response => {
+            let cartProduct = response.data
+            this.cart.items.push(cartProduct)
+            this.$store.commit('setCart', this.cart)
+          })
+          .catch(error => console.error(error.response.data))
+
+      this.updateCart(this.cart)
+
     },
-    checkSize() {
-      console.log(this.checked_size)
-    }
+    updateCart(cart) {
+      axios.put(`http://localhost:8000/api/cart/${cart.id}/`, cart)
+          .then(response => {
+                this.$store.state.cart = response.data
+              }).catch(error => console.error(error.response.data))
+    },
   },
 
 }

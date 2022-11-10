@@ -1,7 +1,7 @@
 <template>
 
   <UnloginCart v-if="!login"/>
-  <LoginCart v-else/>
+  <LoginCart v-else cart=cart />
 
 </template>
 
@@ -15,22 +15,24 @@ export default {
   components: {UnloginCart, LoginCart},
   data() {
     return {
-      login: false
+      login: false,
+      cart: this.$store.state.cart
     }
   },
   mounted() {
     if (localStorage.getItem('token') !== '') {
       this.login = true
+      this.getCart()
     } else {
       this.login = false
     }
   },
   methods: {
-    getItems() {
-      axios.get('http://127.0.0.1:8000/order/', )
-          .then(response => {
-            this.items = response.data
-          })
+    getCart() {
+      // axios.get(`http://127.0.0.1:8000/api/cart/${this.cart.id}/`)
+      //     .then(response => {
+      //       this.items = response.data
+      //     })
     },
   }
 

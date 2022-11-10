@@ -36,7 +36,6 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class CartProductSerializer(serializers.ModelSerializer):
-    item = serializers.StringRelatedField(many=False)
 
     class Meta:
         model = CartProduct
